@@ -3,19 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 document.addEventListener('DOMContentLoaded', () => {
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <div className="app">
-        <Switch>
-          <Route path="/" component={App} exact />
-          <Route path="/" render={() => <Redirect to="/" />} />
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );

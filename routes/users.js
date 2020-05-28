@@ -81,7 +81,8 @@ router.post("/signup", (req, res) => {
         } else {
             const newUser = new User({
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                storeID: req.body.storeID
             });
 
             bcrypt.genSalt(10, (err, salt) => {
@@ -91,7 +92,7 @@ router.post("/signup", (req, res) => {
                     newUser
                         .save()
                         .then(user => {
-                            const payload = { id: user.id, email: user.email, name: user.name };
+                            const payload = { id: user.id, email: user.email, storeID: user.storeID };
 
                             jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
                                 res.json({
