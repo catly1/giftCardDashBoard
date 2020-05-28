@@ -4,8 +4,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const validateRegisterInput = require('../../validation/register');
-const validateLoginInput = require('../../validation/login');
+const validateRegisterInput = require('../validation/register');
+const validateLoginInput = require('../validation/login');
+const key = require('../config/keys_dev');
+const secretOrKey = process.env.SECRETORKEY || key.secretOrKey;
 
 // router.post('/add', async (req, res) => {
 //     if (isEmpty(req.body)) {
@@ -41,21 +43,21 @@ const validateLoginInput = require('../../validation/login');
 // });
 
 
-// router.get('/users', async (req, res) => {
+router.get('/users', async (req, res) => {
 
-//     try {
-//         const users = await User.find({});
+    try {
+        const users = await User.find({});
 
-//         return res.json({
-//             users
-//         });
-//     } catch (error) {
-//         return res.status(500).json({
-//             message: 'Internal Server error'
-//         });
-//     }
+        return res.json({
+            users
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: 'Internal Server error'
+        });
+    }
 
-// });
+});
 
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.json({
@@ -92,7 +94,7 @@ router.post("/register", (req, res) => {
                         .then(user => {
                             const payload = { id: user.id, email: user.email, name: user.name };
 
-                            jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                            jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
                                 res.json({
                                     success: true,
                                     token: "Bearer " + token
@@ -126,7 +128,7 @@ router.post("/login", (req, res) => {
             if (isMatch) {
                 const payload = { id: user.id, email: user.email, name: user.name };
 
-                jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
+                jwt.sign(payload, secretOrKey, { expiresIn: 3600 }, (err, token) => {
                     res.json({
                         success: true,
                         token: "Bearer " + token
