@@ -5,7 +5,7 @@ const path = require('path');
 const key = require('./config/keys_dev').mongoURI
 
 // importing files
-const routes = require('./routes/users');
+const users = require('./routes/users');
 
 // Define Global Variables
 const app = express();
@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGODB_URI || key, {
 // Configuration
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', routes);
+app.use('/api/', users);
 
 // Step 3
 if (process.env.NODE_ENV === 'production') {

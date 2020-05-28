@@ -1,7 +1,7 @@
 import React from 'react';
 // import './App.css';
 import Dashboard from './components/dashboard';
-import { AuthRoute } from './util/route_util';
+// import { AuthRoute } from './util/route_util';
 import { Switch, Route } from 'react-router-dom';
 
 const App = () => (
