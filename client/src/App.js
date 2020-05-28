@@ -3,11 +3,14 @@ import React from 'react';
 import Dashboard from './components/dashboard';
 // import { AuthRoute } from './util/route_util';
 import { Switch, Route } from 'react-router-dom';
+import SessionForm from './components/session_form';
+
 
 const App = () => (
   <Switch>
     {/* <AuthRoute exact path="/signup" component={SignUp} /> */}
     {/* <AuthRoute exact path="/login" component={Login} /> */}
+    <Route path="/" component={()=>new SessionForm("login")} />
     <Route path="/" component={Dashboard} />
   </Switch>
 );

@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const validateRegisterInput = require('../validation/register');
+const validateSignupInput = require('../validation/signup');
 const validateLoginInput = require('../validation/login');
 const key = require('../config/keys_dev');
 const secretOrKey = process.env.SECRETORKEY || key.secretOrKey;
@@ -67,8 +67,8 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
     });
 })
 
-router.post("/register", (req, res) => {
-    const { errors, isValid } = validateRegisterInput(req.body);
+router.post("/signup", (req, res) => {
+    const { errors, isValid } = validateSignupInput(req.body);
 
     if (!isValid) {
         return res.status(400).json(errors);
@@ -80,7 +80,6 @@ router.post("/register", (req, res) => {
             return res.status(400).json(errors);
         } else {
             const newUser = new User({
-                name: req.body.name,
                 email: req.body.email,
                 password: req.body.password
             });
