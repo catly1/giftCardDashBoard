@@ -8,7 +8,6 @@ export default function SessionForm(props) {
     const [password, setPassword] = React.useState("");
     const [password2, setPassword2] = React.useState("");
     const [errors,setErrors] = React.useState({});
-
     const renderErrors = ()=>{
         return (
             <ul>
@@ -21,8 +20,14 @@ export default function SessionForm(props) {
         );   
     }
 
-    const handleErrors = (res) => {
-        setErrors(res);
+    const handleResponse = (res) => {
+        console.log(res)
+        if(!res.success) {
+            setErrors(res)
+            return
+        };
+
+        window.location.reload();
     }
 
     const handleSubmit = (e) => {
@@ -37,11 +42,11 @@ export default function SessionForm(props) {
 
         if (props === "login"){
             login(user).then(res => {
-                handleErrors(res)
+                handleResponse(res)
             })
         } else if (props === "signup"){
             signup(user).then(res =>{
-                handleErrors(res)
+                handleResponse(res)
             })
         }
    

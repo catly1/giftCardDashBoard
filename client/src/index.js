@@ -3,8 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import jwt_decode from 'jwt-decode';
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log(document.cookie)
+  if (localStorage.jwtToken){
+
+  } else {
+
+  }
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App/>

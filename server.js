@@ -2,10 +2,15 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const key = require('./config/keys_dev').mongoURI
+const key = require('./config/keys_dev');
+const cors = require('cors');
+// const jwt = require('express-jwt');
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 
 // importing files
 const users = require('./routes/users');
+const auths = require('./routes/auths')
 
 // Define Global Variables
 const app = express();
@@ -14,18 +19,44 @@ const PORT = process.env.PORT || 8080; // Step 1
 
 
 // Step 2
-mongoose.connect(process.env.MONGODB_URI || key, {
+mongoose.connect(process.env.MONGODB_URI || key.mongoURI, {
     useNewUrlParser: true
 });
 
 // Configuration
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+app.use(cors({
+    origin: [
+        `${process.env.FRONT_URL}`,
+        'http://localhost:3000',
+        'https://mypage.com',
+    ],
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+// app.use('/api/auth/',jwt({
+//     secret: process.env.SECRETORKEY || key.secretOrKey,
+//     getToken: req => req.cookies.token
+// }))
+app.use('/api/auth/', (req, res, next) => {
+    console.log(req.cookies)
+    const token = req.cookies.token // Get your token from the request
+    console.log(token)
+    jwt.verify(token, process.env.SECRETORKEY || key.secretOrKey, function (err, decoded) {
+        if (err) {
+            res.json(err)
+            throw new Error(err)
+        } // Manage different errors here (Expired, untrusted...)
+        req.auth = decoded // If no error, token info is returned in 'decoded'
+        next()   
+})
+})
+
+app.use('/api/auth/', auths)
+app.get('/api/jwt', (req, res) =>{
+    res.json()
+})
 app.use('/api/', users);
 
 // Step 3

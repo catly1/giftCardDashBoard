@@ -2,14 +2,16 @@ import React from 'react';
 // import './App.css';
 import { fetchGiftCards } from '../util/gift_cards_api'
 
+
 function Dashboard(props) {
     const [giftCards, setGiftCards] = React.useState([]);
 
     React.useEffect(() => {
         fetchGiftCards().then(items => {
+            console.log(items)
             setGiftCards(items.items)
         })
-    })
+    },[])
 
     const renderGiftCards = () => {
         return (
@@ -19,9 +21,11 @@ function Dashboard(props) {
         )
     }
 
+
     return (
         <div className="Dashboard">
             <header className="Dashboard-header">
+                
                 {renderGiftCards()}
             </header>
         </div>
