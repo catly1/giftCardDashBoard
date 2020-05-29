@@ -14,7 +14,7 @@ function Dashboard(props) {
     const renderGiftCards = () => {
         return (
             <ul>
-                {giftCards.map(item => <li key={item._id}>{item.item + " $" + item.initialBalance + " purchased: "  + item._createdDate}</li>)}
+                {giftCards.map(item => <li key={item._id}>{item.item + " $" + item.initialBalance + " purchased: "  + item._createdDate + " code: " + item.code}</li>)}
             </ul>
         )
     }
