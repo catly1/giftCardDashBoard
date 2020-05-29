@@ -1,5 +1,5 @@
 export async function login(user) {
-    const response = await fetch(`http://localhost:8080/api/login`, {
+    const response = await fetch(`/api/login`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
@@ -13,7 +13,7 @@ export async function login(user) {
 }
 
 export async function signup(user) {
-    const response = await fetch(`http://localhost:8080/api/signup`, {
+    const response = await fetch(`/api/signup`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
@@ -27,7 +27,7 @@ export async function signup(user) {
 }
 
 export async function auth(){
-    const response = await fetch(`http://localhost:8080/api/auth/`, {
+    const response = await fetch(`/api/auth/`, {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -39,7 +39,7 @@ export async function auth(){
 }
 
 export async function logout() {
-    const response = await fetch(`http://localhost:8080/api/auth/logout`, {
+    const response = await fetch(`/api/auth/logout`, {
         method: 'POST',
         credentials: 'include',
         headers: {
