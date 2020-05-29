@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const validateSignupInput = require('../validation/signup');
 const validateLoginInput = require('../validation/login');
-const key = require('../config/keys_dev');
+const key = require('../config/keys');
 const secretOrKey = process.env.SECRETORKEY || key.secretOrKey;
 
 
