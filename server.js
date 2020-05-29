@@ -35,14 +35,9 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use('/api/auth/',jwt({
-//     secret: process.env.SECRETORKEY || key.secretOrKey,
-//     getToken: req => req.cookies.token
-// }))
+
 app.use('/api/auth/', (req, res, next) => {
-    console.log(req.cookies)
     const token = req.cookies.token // Get your token from the request
-    console.log(token)
     jwt.verify(token, process.env.SECRETORKEY || key.secretOrKey, function (err, decoded) {
         if (err) {
             res.json(err)

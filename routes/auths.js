@@ -11,7 +11,6 @@ const secretOrKey = process.env.SECRETORKEY || key.secretOrKey;
 
 
 router.get('/', async (req, res) => {
-    console.log(req.auth)
     try {
         const user = await User.findOne({ _id:req.auth.id })
 

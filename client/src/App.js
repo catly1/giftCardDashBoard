@@ -15,7 +15,6 @@ const App = (props) => {
 
   React.useEffect(() => {
     auth().then(res => {
-      console.log(res);
       if (!res.name) {
         setUser(res.user);
         setIsLoggedIn(true);

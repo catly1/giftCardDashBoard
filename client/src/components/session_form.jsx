@@ -21,7 +21,6 @@ export default function SessionForm(props) {
     }
 
     const handleResponse = (res) => {
-        console.log(res)
         if(!res.success) {
             setErrors(res)
             return

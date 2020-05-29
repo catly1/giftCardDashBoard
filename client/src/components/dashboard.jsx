@@ -6,7 +6,6 @@ function Dashboard(props) {
     const [giftCards, setGiftCards] = React.useState([]);
     React.useEffect(() => {
         fetchGiftCards(props.storeID).then(items => {
-            console.log(items)
             if (!items.error) setGiftCards(items.items)
         })
     },[])

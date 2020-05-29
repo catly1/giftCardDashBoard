@@ -6,7 +6,6 @@ import * as serviceWorker from './serviceWorker';
 import jwt_decode from 'jwt-decode';
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log(document.cookie)
   if (localStorage.jwtToken){
 
   } else {
