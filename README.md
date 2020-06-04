@@ -1,6 +1,10 @@
 ### What is this?
 This is a dashboard that displays giftcards purchased through wix. A user has to create an account with a store ID to see gift cards only purchased on that store.
 
+https://giftcarddashboard.herokuapp.com/
+* Email: wc@donalds.com
+* password: password
+
 ### How to run locally
 * Create a keys_dev.js file in the config directory and put in your mongo connection string URI in mongoURI and a secret key for JSON Web Token like:
 ```javascript
