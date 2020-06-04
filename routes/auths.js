@@ -1,27 +1,14 @@
 const express = require('express');
 const User = require('../models/user');
 const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const passport = require('passport');
-const validateSignupInput = require('../validation/signup');
-const validateLoginInput = require('../validation/login');
-const key = require('../config/keys');
-const secretOrKey = process.env.SECRETORKEY || key.secretOrKey;
 
+router.get('/', (req, res) => {
+   
+    User.findOne({ _id:req.auth.id }).then(user => res.json({user})).catch(err => {
+        console.log(err);
+        res.status(500).json(err)
+    })
 
-router.get('/', async (req, res) => {
-    try {
-        const user = await User.findOne({ _id:req.auth.id })
-
-        return res.json({
-            user
-        });
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Internal Server error'
-        });
-    }
 })
 
 router.post('/logout', (req, res) => {
@@ -29,20 +16,5 @@ router.post('/logout', (req, res) => {
     res.json({success: true})
 })
 
-router.get('/users', async (req, res) => {
-
-    try {
-        const users = await User.find({});
-
-        return res.json({
-            users
-        });
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Internal Server error'
-        });
-    }
-
-});
 
 module.exports = router;

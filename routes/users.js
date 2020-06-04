@@ -3,26 +3,18 @@ const User = require('../models/user');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
 const validateSignupInput = require('../validation/signup');
 const validateLoginInput = require('../validation/login');
 const key = require('../config/keys');
 const secretOrKey = process.env.SECRETORKEY || key.secretOrKey;
 
 
-router.get('/users', async (req, res) => {
+router.get('/users', (req, res) => {
 
-    try {
-        const users = await User.find({});
-
-        return res.json({
-            users
-        });
-    } catch (error) {
-        return res.status(500).json({
-            message: 'Internal Server error'
-        });
-    }
+    User.find({}).then(users => res.json(users)).catch(err =>{
+        console.log(err);
+        res.status(400).json(err);
+    });
 
 });
 
