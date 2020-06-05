@@ -14,6 +14,9 @@ module.exports = {
 }
 ```
 (Not an actual connection String)
+* cd into client folder
+* npm install
+* cd back into parent directory
 * npm install
 * npm start dev
 * Create a user with these store IDs to view their respective gift card sales:
